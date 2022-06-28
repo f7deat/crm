@@ -1,5 +1,6 @@
-import { queryContactList } from '@/services/contact';
+import { deleteContact, queryContactList } from '@/services/contact';
 import services from '@/services/demo';
+import { DeleteOutlined, FolderOutlined } from '@ant-design/icons';
 import {
   ActionType,
   FooterToolbar,
@@ -8,7 +9,7 @@ import {
   ProDescriptionsItemProps,
   ProTable,
 } from '@ant-design/pro-components';
-import { Button, Divider, Drawer, message, Popover } from 'antd';
+import { Button, Divider, Drawer, message, Popconfirm, Popover } from 'antd';
 import React, { useRef, useState } from 'react';
 
 const { addUser, queryUserList, deleteUser, modifyUser } =
@@ -36,7 +37,6 @@ const handleRemove = async (selectedRows: API.UserInfo[]) => {
 };
 
 const ContactList: React.FC<unknown> = () => {
-  const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [row, setRow] = useState<API.UserInfo>();
   const [selectedRowsState, setSelectedRows] = useState<API.UserInfo[]>([]);
@@ -52,6 +52,16 @@ const ContactList: React.FC<unknown> = () => {
         }
     </div>
   )
+
+  const handleRemove = (id: string) => {
+    deleteContact(id).then(response => {
+      if (response.succeeded) {
+        message.success('succeeded!')
+      } else {
+        message.error(response.message)
+      }
+    })
+  }
 
   const columns: ProDescriptionsItemProps<any>[] = [
     {
@@ -89,12 +99,12 @@ const ContactList: React.FC<unknown> = () => {
       render: (_, record) => (
         <>
           <Popover content={ViewMore(JSON.parse(record.metaData))}>
-          <a>
-            View more
-          </a>
+            <Button icon={<FolderOutlined />} type="primary" />
           </Popover>
           <Divider type="vertical" />
-          <a href="">Delete</a>
+          <Popconfirm title="Are you sure delete this?" onConfirm={() => handleRemove(record.id)}>
+            <Button icon={<DeleteOutlined />} danger type="primary" />
+          </Popconfirm>
         </>
       ),
     },
@@ -103,25 +113,16 @@ const ContactList: React.FC<unknown> = () => {
   return (
     <PageContainer
       header={{
-        title: 'CRUD 示例',
+        title: 'Contact',
       }}
     >
       <ProTable<API.UserInfo>
-        headerTitle="查询表格"
+        headerTitle="Lead"
         actionRef={actionRef}
         rowKey="id"
         search={{
           labelWidth: 120,
         }}
-        toolBarRender={() => [
-          <Button
-            key="1"
-            type="primary"
-            onClick={() => handleModalVisible(true)}
-          >
-            新建
-          </Button>,
-        ]}
         request={queryContactList}
         columns={columns}
         rowSelection={{
@@ -138,15 +139,6 @@ const ContactList: React.FC<unknown> = () => {
             </div>
           }
         >
-          <Button
-            onClick={async () => {
-              await handleRemove(selectedRowsState);
-              setSelectedRows([]);
-              actionRef.current?.reloadAndRest?.();
-            }}
-          >
-            批量删除
-          </Button>
           <Button type="primary">批量审批</Button>
         </FooterToolbar>
       )}

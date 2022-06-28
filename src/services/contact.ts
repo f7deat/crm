@@ -21,10 +21,6 @@ export async function queryContactList(
   });
 }
 
-/** 登录接口 POST /api/login/account */
-export async function login(body: any) {
-    return request(`https://defzone.net/api/user/password-sign-in`, {
-      method: 'POST',
-      data: body,
-    });
-  }
+export async function deleteContact(id: string) {
+  return request(`https://defzone.net/api/contact/delete/${id}`);
+}

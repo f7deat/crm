@@ -1,5 +1,6 @@
-import { login } from '@/services/contact';
+import { login } from '@/services/account';
 import { PageContainer, ProForm, ProFormText } from '@ant-design/pro-components';
+import { history } from '@umijs/max';
 import Password from 'antd/lib/input/Password';
 
 const HomePage: React.FC = () => {
@@ -8,6 +9,7 @@ const HomePage: React.FC = () => {
     login(values).then(response => {
       if (response.succeeded) {
         localStorage.setItem('def_token', response.token || '');
+        history.push('/contact')
       }
     })
   }

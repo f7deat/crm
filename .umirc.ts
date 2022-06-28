@@ -5,9 +5,14 @@ export default defineConfig({
   access: {},
   model: {},
   initialState: {},
-  request: {},
+  request: {
+  },
   layout: {
-    title: '@umijs/max',
+    title: 'crm.defzone.net',
+  },
+  locale: {
+    default: 'en-US',
+    antd: true
   },
   routes: [
     {
