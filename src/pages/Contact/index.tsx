@@ -1,5 +1,4 @@
 import { deleteContact, queryContactList } from '@/services/contact';
-import services from '@/services/demo';
 import { DeleteOutlined, FolderOutlined } from '@ant-design/icons';
 import {
   ActionType,
@@ -12,30 +11,6 @@ import {
 import { Button, Divider, Drawer, message, Popconfirm, Popover } from 'antd';
 import React, { useRef, useState } from 'react';
 
-const { addUser, queryUserList, deleteUser, modifyUser } =
-  services.UserController;
-
-/**
- *  删除节点
- * @param selectedRows
- */
-const handleRemove = async (selectedRows: API.UserInfo[]) => {
-  const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
-  try {
-    await deleteUser({
-      userId: selectedRows.find((row) => row.id)?.id || '',
-    });
-    hide();
-    message.success('删除成功，即将刷新');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('删除失败，请重试');
-    return false;
-  }
-};
-
 const ContactList: React.FC<unknown> = () => {
   const actionRef = useRef<ActionType>();
   const [row, setRow] = useState<API.UserInfo>();
@@ -44,9 +19,9 @@ const ContactList: React.FC<unknown> = () => {
   const ViewMore = (informations: any) => (
     <div>
         {
-            informations.informations?.map((x: any) => (
-                <div>
-                    {x.name} : {x.value}
+            informations.informations?.map((x: any, i: number) => (
+                <div key={i}>
+                    {x.name}: {x.value}
                 </div>
             ))
         }
@@ -56,6 +31,7 @@ const ContactList: React.FC<unknown> = () => {
   const handleRemove = (id: string) => {
     deleteContact(id).then(response => {
       if (response.succeeded) {
+        actionRef.current?.reload();
         message.success('succeeded!')
       } else {
         message.error(response.message)
@@ -67,7 +43,7 @@ const ContactList: React.FC<unknown> = () => {
     {
       title: 'Name',
       dataIndex: 'fullName',
-      tip: '名称是唯一的 key',
+      tip: 'Include fist name and last name',
       formItemProps: {
         rules: [
           {

@@ -22,5 +22,12 @@ export async function queryContactList(
 }
 
 export async function deleteContact(id: string) {
-  return request(`https://defzone.net/api/contact/delete/${id}`);
+  const token = localStorage.getItem('def_token');
+  const headers = {
+    authorization: `Bearer ${token}`,
+  };
+  return request(`https://defzone.net/api/contact/delete/${id}`, {
+    method: 'POST',
+    headers: headers
+  });
 }
