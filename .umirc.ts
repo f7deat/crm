@@ -16,8 +16,20 @@ export default defineConfig({
   },
   routes: [
     {
+      name: 'Account',
+      path: '/account',
+      layout: false,
+      routes: [
+        {
+          name: 'Login',
+          path: '/account/login',
+          component: './Account/Login'
+        }
+      ]
+    },
+    {
       path: '/',
-      redirect: '/home',
+      redirect: '/account/login',
     },
     {
       name: 'Home',

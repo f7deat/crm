@@ -2,14 +2,18 @@ import { deleteContact, queryContactList } from '@/services/contact';
 import { DeleteOutlined, FolderOutlined } from '@ant-design/icons';
 import {
   ActionType,
+  BaseQueryFilterProps,
   FooterToolbar,
   PageContainer,
+  ProCard,
   ProDescriptions,
   ProDescriptionsItemProps,
   ProTable,
 } from '@ant-design/pro-components';
-import { Button, Divider, Drawer, message, Popconfirm, Popover } from 'antd';
+import { Button, Card, DatePicker, Divider, Drawer, message, Popconfirm, Popover } from 'antd';
 import React, { useRef, useState } from 'react';
+
+const { RangePicker } = DatePicker;
 
 const ContactList: React.FC<unknown> = () => {
   const actionRef = useRef<ActionType>();
@@ -92,12 +96,15 @@ const ContactList: React.FC<unknown> = () => {
         title: 'Contact',
       }}
     >
+      <ProCard style={{marginBottom: 16}}>
+        <RangePicker />
+      </ProCard>
       <ProTable<API.UserInfo>
         headerTitle="Lead"
         actionRef={actionRef}
         rowKey="id"
         search={{
-          labelWidth: 120,
+          layout: 'vertical',
         }}
         request={queryContactList}
         columns={columns}
@@ -109,13 +116,13 @@ const ContactList: React.FC<unknown> = () => {
         <FooterToolbar
           extra={
             <div>
-              已选择{' '}
+              Selected{' '}
               <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>{' '}
-              项&nbsp;&nbsp;
+              row&nbsp;&nbsp;
             </div>
           }
         >
-          <Button type="primary">批量审批</Button>
+          <Button type="primary" danger>Delete</Button>
         </FooterToolbar>
       )}
 
