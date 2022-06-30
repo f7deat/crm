@@ -1,24 +1,22 @@
 import { deleteContact, queryContactList } from '@/services/contact';
-import { DeleteOutlined, FolderOutlined } from '@ant-design/icons';
+import { DeleteOutlined, FolderOutlined, SettingOutlined } from '@ant-design/icons';
 import {
   ActionType,
-  BaseQueryFilterProps,
   FooterToolbar,
   PageContainer,
-  ProCard,
   ProDescriptions,
   ProDescriptionsItemProps,
   ProTable,
 } from '@ant-design/pro-components';
-import { Button, Card, DatePicker, Divider, Drawer, message, Popconfirm, Popover } from 'antd';
+import { Button, Divider, Drawer, message, Popconfirm, Popover } from 'antd';
 import React, { useRef, useState } from 'react';
-
-const { RangePicker } = DatePicker;
+import ContactTool from './components/tool';
 
 const ContactList: React.FC<unknown> = () => {
   const actionRef = useRef<ActionType>();
   const [row, setRow] = useState<API.UserInfo>();
   const [selectedRowsState, setSelectedRows] = useState<API.UserInfo[]>([]);
+  const [visibleTool, setVisibleTool] = useState<boolean>(false);
 
   const ViewMore = (informations: any) => (
     <div>
@@ -95,10 +93,8 @@ const ContactList: React.FC<unknown> = () => {
       header={{
         title: 'Contact',
       }}
+      extra={<Button icon={<SettingOutlined />} onClick={() => setVisibleTool(true)}></Button>}
     >
-      <ProCard style={{marginBottom: 16}}>
-        <RangePicker />
-      </ProCard>
       <ProTable<API.UserInfo>
         headerTitle="Lead"
         actionRef={actionRef}
@@ -148,6 +144,7 @@ const ContactList: React.FC<unknown> = () => {
           />
         )}
       </Drawer>
+      <ContactTool visible={visibleTool} setVisible={setVisibleTool} />
     </PageContainer>
   );
 };

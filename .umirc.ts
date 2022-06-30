@@ -32,21 +32,25 @@ export default defineConfig({
       redirect: '/account/login',
     },
     {
+      icon: 'home',
       name: 'Home',
       path: '/home',
       component: './Home',
     },
     {
-      name: '权限演示',
+      icon: 'message',
+      name: 'Conversation',
       path: '/access',
       component: './Access',
     },
     {
-        name: ' CRUD 示例',
+        icon: 'fire',
+        name: 'Campain',
         path: '/table',
         component: './Table',
     },
     {
+        icon: 'contacts',
         name: 'Contact',
         path: '/contact',
         component: './Contact',
