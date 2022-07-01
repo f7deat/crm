@@ -4,17 +4,16 @@ import {
   ActionType,
   FooterToolbar,
   PageContainer,
-  ProDescriptions,
   ProDescriptionsItemProps,
   ProTable,
 } from '@ant-design/pro-components';
-import { Button, Divider, Drawer, message, Popconfirm, Popover } from 'antd';
+import { Button, Divider, message, Popconfirm, Popover } from 'antd';
+import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import ContactTool from './components/tool';
 
 const ContactList: React.FC<unknown> = () => {
   const actionRef = useRef<ActionType>();
-  const [row, setRow] = useState<API.UserInfo>();
   const [selectedRowsState, setSelectedRows] = useState<API.UserInfo[]>([]);
   const [visibleTool, setVisibleTool] = useState<boolean>(false);
 
@@ -41,19 +40,11 @@ const ContactList: React.FC<unknown> = () => {
     })
   }
 
-  const columns: ProDescriptionsItemProps<any>[] = [
+  const columns: ProDescriptionsItemProps<API.Contact>[] = [
     {
       title: 'Name',
       dataIndex: 'fullName',
       tip: 'Include fist name and last name',
-      formItemProps: {
-        rules: [
-          {
-            required: true,
-            message: '名称为必填项',
-          },
-        ],
-      },
     },
     {
       title: 'Email',
@@ -63,12 +54,14 @@ const ContactList: React.FC<unknown> = () => {
     {
       title: 'Phone number',
       dataIndex: 'phoneNumber',
-      hideInForm: true,
     },
     {
       title: 'Address',
       dataIndex: 'address',
-      hideInForm: true,
+    },
+    {
+      title: 'Created Date',
+      render: (_, record) => moment(record.createdDate).format('DD/MM/YYYY hh:mm:ss')
     },
     {
       title: 'Task',
@@ -95,7 +88,7 @@ const ContactList: React.FC<unknown> = () => {
       }}
       extra={<Button icon={<SettingOutlined />} onClick={() => setVisibleTool(true)}></Button>}
     >
-      <ProTable<API.UserInfo>
+      <ProTable<API.Contact>
         headerTitle="Lead"
         actionRef={actionRef}
         rowKey="id"
@@ -121,29 +114,6 @@ const ContactList: React.FC<unknown> = () => {
           <Button type="primary" danger>Delete</Button>
         </FooterToolbar>
       )}
-
-      <Drawer
-        width={600}
-        visible={!!row}
-        onClose={() => {
-          setRow(undefined);
-        }}
-        closable={false}
-      >
-        {row?.name && (
-          <ProDescriptions<API.UserInfo>
-            column={2}
-            title={row?.name}
-            request={async () => ({
-              data: row || {},
-            })}
-            params={{
-              id: row?.name,
-            }}
-            columns={columns}
-          />
-        )}
-      </Drawer>
       <ContactTool visible={visibleTool} setVisible={setVisibleTool} />
     </PageContainer>
   );

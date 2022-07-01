@@ -30,7 +30,9 @@ const ContactTool: React.FC<ContactToolProps> = (props) => {
             <div className="mb-2">
                 <Typography.Text strong={true}>Date</Typography.Text>
             </div>
-            <RangePicker className="w-full mb-4" onChange={onChange} />
+            <div className="mb-4">
+                <RangePicker onChange={onChange} className="w-full" />
+            </div>
             <Button type="primary" icon={<ExportOutlined />} onClick={exportRange}>Export</Button>
         </Drawer>
     )

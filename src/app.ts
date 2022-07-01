@@ -2,6 +2,7 @@
 
 import { UserOutlined } from "@ant-design/icons";
 import type { BasicLayoutProps, DefaultFooter } from "@ant-design/pro-components";
+import Footer from "./layout/footer";
 import RightContent from "./layout/right-content";
 import { user } from "./services/account";
 import './style.css';

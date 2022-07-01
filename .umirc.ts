@@ -44,17 +44,23 @@ export default defineConfig({
       component: './Access',
     },
     {
-        icon: 'fire',
-        name: 'Campain',
-        path: '/table',
-        component: './Table',
+      icon: 'fire',
+      name: 'Campain',
+      path: '/table',
+      component: './Table',
     },
     {
-        icon: 'contacts',
-        name: 'Contact',
-        path: '/contact',
-        component: './Contact',
+      icon: 'contacts',
+      name: 'Contact',
+      path: '/contact',
+      component: './Contact',
     },
+    {
+      icon: 'appstore',
+      name: 'Application',
+      path: '/application',
+      component: './Application'
+    }
   ],
   npmClient: 'npm',
 });

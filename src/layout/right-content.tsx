@@ -1,30 +1,39 @@
+import { LogoutOutlined, SettingOutlined, TranslationOutlined, UserOutlined } from "@ant-design/icons";
 import { useModel } from "@umijs/max"
-import { Avatar, Dropdown, Menu, Space } from "antd"
+import { Avatar, Button, Dropdown, Menu, Space } from "antd"
 
 const RightContent: React.FC = () => {
 
     const state = useModel('@@initialState')
 
     const items = [
-        { label: 'Account', key: 'item-1' }, // 菜单项务必填写 key
+        {
+            label: 'Account',
+            key: 'item-1',
+            icon: <UserOutlined />
+        },
         {
             label: 'Setting',
-            key: 'submenu',
-            children: [
-                { label: 'Theme', key: 'submenu-item-1' },
-                { label: 'Billing', key: 'submenu-item-2' }
-            ],
+            key: 'item-2',
+            icon: <SettingOutlined />
         },
-        { label: 'Logout', key: 'item-2' },
+        {
+            label: 'Logout',
+            key: 'item-3',
+            icon: <LogoutOutlined />
+        },
     ];
 
     const overLay = (<Menu items={items} />)
 
     return (
-        <Space>
+        <Space size={0}>
+            <Button type="link">
+                <TranslationOutlined />
+            </Button>
             <Avatar src={state.initialState?.user.avatar} />
             <Dropdown overlay={overLay}>
-                <div>{state.initialState?.user.email}</div>
+                <Button type="link">{state.initialState?.user.email}</Button>
             </Dropdown>
         </Space>
     )

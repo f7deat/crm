@@ -1,6 +1,7 @@
-import { PageContainer, ProCard } from '@ant-design/pro-components';
+import { CheckOutlined, DotChartOutlined, LikeOutlined, UserAddOutlined } from '@ant-design/icons';
+import { PageContainer, ProCard, ProTable } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
-import { Alert, Avatar, Col, Row, Space, Typography } from 'antd';
+import { Alert, Avatar, Col, Empty, Row, Space, Statistic, Typography } from 'antd';
 
 const HomePage: React.FC = () => {
 
@@ -10,10 +11,37 @@ const HomePage: React.FC = () => {
     <PageContainer ghost>
       <Row gutter={24}>
         <Col span={16}>
-          <Alert message="Wellcome to CRM!"></Alert>
+          <Row gutter={16} className="mb-4">
+            <Col span={6}>
+              <ProCard>
+                <Statistic title="Unasgned" value={1128} prefix={<LikeOutlined />} />
+              </ProCard>
+            </Col>
+            <Col span={6}>
+              <ProCard>
+                <Statistic title="Assigned" value={450} prefix={<UserAddOutlined />} />
+              </ProCard>
+            </Col>
+            <Col span={6}>
+              <ProCard>
+                <Statistic title="Closed" value={3500} prefix={<CheckOutlined />} />
+              </ProCard>
+            </Col>
+            <Col span={6}>
+              <ProCard>
+                <Statistic title="Channels" value={3} prefix={<DotChartOutlined />} />
+              </ProCard>
+            </Col>
+          </Row>
+          <ProCard title="Today" className='mb-4'>
+            <Empty />
+          </ProCard>
+          <ProCard>
+            <ProTable></ProTable>
+          </ProCard>
         </Col>
         <Col span={8}>
-          <ProCard>
+          <ProCard className='mb-4'>
             <Space size="large">
               <Avatar src={initialState.initialState?.user.avatar} size={100} />
               <div>
@@ -26,6 +54,9 @@ const HomePage: React.FC = () => {
                 </Space>
               </div>
             </Space>
+          </ProCard>
+          <ProCard>
+            <Empty />
           </ProCard>
         </Col>
       </Row>
