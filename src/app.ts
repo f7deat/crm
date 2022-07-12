@@ -1,8 +1,8 @@
 // 运行时配置
 
-import { UserOutlined } from "@ant-design/icons";
-import type { BasicLayoutProps, DefaultFooter } from "@ant-design/pro-components";
-import Footer from "./layout/footer";
+import type { BasicLayoutProps } from "@ant-design/pro-components";
+import type { RequestConfig } from "@umijs/max";
+import type { RequestOptions } from "./.umi/plugin-request/request";
 import RightContent from "./layout/right-content";
 import { user } from "./services/account";
 import './style.css';
@@ -17,11 +17,11 @@ export interface InitialStateProps {
 // 更多信息见文档：https://next.umijs.org/docs/api/runtime-config#getinitialstate
 export async function getInitialState(): Promise<InitialStateProps> {
   const response = await user();
-  return { 
+  return {
     name: '@umijs/max',
     isAuthenticated: response.succeeded,
     user: response
-   };
+  };
 }
 
 export const layout: BasicLayoutProps = () => {
@@ -30,8 +30,29 @@ export const layout: BasicLayoutProps = () => {
     menu: {
       locale: false,
     },
-    logout: () => {},
+    logout: () => { },
     rightContentRender: RightContent,
     layout: 'mix'
   };
+};
+
+export const request: RequestConfig = {
+  requestInterceptors: [
+    (config: RequestOptions) => {
+      const token = localStorage.getItem('def_token');
+      config.baseURL = 'https://defzone.net/api';
+      config.headers = {
+        authorization: `Bearer ${token}`,
+      }
+      return config;
+    },
+  ],
+  responseInterceptors: [
+    (res) => {
+      return res;
+    },
+  ],
+  errorConfig: {
+
+  },
 };

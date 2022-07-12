@@ -53,7 +53,19 @@ export default defineConfig({
       icon: 'contacts',
       name: 'Contact',
       path: '/contact',
-      component: './Contact',
+      routes: [
+        {
+          name: 'Contact List',
+          path: '/contact/list',
+          component: './Contact/List'
+        },
+        {
+          name: 'Contact Center',
+          path: '/contact/center',
+          component: './Contact/Center',
+          hideInMenu: true
+        }
+      ]
     },
     {
       icon: 'appstore',

@@ -7,10 +7,11 @@ import {
   ProDescriptionsItemProps,
   ProTable,
 } from '@ant-design/pro-components';
+import { Link } from '@umijs/max';
 import { Button, Divider, message, Popconfirm, Popover } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
-import ContactTool from './components/tool';
+import ContactTool from '../components/tool';
 
 const ContactList: React.FC<unknown> = () => {
   const actionRef = useRef<ActionType>();
@@ -20,7 +21,7 @@ const ContactList: React.FC<unknown> = () => {
   const ViewMore = (informations: any) => (
     <div>
         {
-            informations.informations?.map((x: any, i: number) => (
+            informations?.informations.map((x: any, i: number) => (
                 <div key={i}>
                     {x.name}: {x.value}
                 </div>
@@ -43,7 +44,11 @@ const ContactList: React.FC<unknown> = () => {
   const columns: ProDescriptionsItemProps<API.Contact>[] = [
     {
       title: 'Name',
-      dataIndex: 'fullName',
+      render: (_, record) => (
+        <Link to='/contact/center'>
+          <a>{record.fullName}</a>
+        </Link>
+      ),
       tip: 'Include fist name and last name',
     },
     {
