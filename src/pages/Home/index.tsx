@@ -1,11 +1,33 @@
 import { CheckOutlined, DotChartOutlined, LikeOutlined, UserAddOutlined } from '@ant-design/icons';
 import { PageContainer, ProCard, ProTable } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
-import { Alert, Avatar, Col, Empty, Row, Space, Statistic, Typography } from 'antd';
+import { Avatar, Col, Divider, Empty, Row, Space, Statistic, Typography } from 'antd';
+import { Line } from '@ant-design/plots';
 
 const HomePage: React.FC = () => {
 
   const initialState = useModel('@@initialState');
+  
+  const data = [
+    { time: '1991', value: 20, year: '2001' },
+    { time: '1993', value: 13, year: '2003' },
+    { time: '1992', value: 23, year: '2005' },
+  ];
+  const config = {
+    data,
+    xField: 'year',
+    yField: 'value',
+    seriesField: 'category',
+    xAxis: {
+      type: 'time',
+    },
+    yAxis: {
+      label: {
+        // 数值格式化为千分位
+        formatter: (v: any) => v,
+      },
+    }
+  };
 
   return (
     <PageContainer ghost>
@@ -33,12 +55,12 @@ const HomePage: React.FC = () => {
               </ProCard>
             </Col>
           </Row>
-          <ProCard title="Today" className='mb-4'>
-            <Empty />
+          <div className='mb-4'>
+          <ProCard title="Today">
+            <Line {...config} height={250} />
           </ProCard>
-          <ProCard>
-            <ProTable></ProTable>
-          </ProCard>
+          </div>
+            <ProTable search={false}></ProTable>
         </Col>
         <Col span={8}>
           <ProCard className='mb-4'>
@@ -55,6 +77,7 @@ const HomePage: React.FC = () => {
               </div>
             </Space>
           </ProCard>
+          <Divider />
           <ProCard>
             <Empty />
           </ProCard>

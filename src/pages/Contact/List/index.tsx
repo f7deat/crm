@@ -45,7 +45,7 @@ const ContactList: React.FC<unknown> = () => {
     {
       title: 'Name',
       render: (_, record) => (
-        <Link to='/contact/center'>
+        <Link to={`/contact/center/${record.id}`}>
           <a>{record.fullName}</a>
         </Link>
       ),

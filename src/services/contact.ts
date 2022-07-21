@@ -22,3 +22,7 @@ export async function deleteContact(id: string) {
     method: 'POST'
   });
 }
+
+export async function queryContact(id: string | undefined) {
+  return request(`contact/${id}`);
+}

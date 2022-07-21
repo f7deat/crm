@@ -61,7 +61,7 @@ export default defineConfig({
         },
         {
           name: 'Contact Center',
-          path: '/contact/center',
+          path: '/contact/center/:id',
           component: './Contact/Center',
           hideInMenu: true
         }
