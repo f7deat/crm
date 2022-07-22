@@ -1,6 +1,8 @@
 import { queryContact } from "@/services/contact"
-import { ArrowUpOutlined, EnvironmentOutlined, MessageOutlined, PhoneOutlined, PlusOutlined, RedEnvelopeOutlined } from "@ant-design/icons"
+import { ArrowLeftOutlined, ArrowUpOutlined, EnvironmentOutlined, MessageOutlined, PhoneOutlined, PlusOutlined, RedEnvelopeOutlined } from "@ant-design/icons"
 import { PageContainer, ProCard, ProTable } from "@ant-design/pro-components"
+import { FormattedMessage } from "@umijs/max"
+import { Link } from "@umijs/max"
 import { useParams } from "@umijs/max"
 import { Avatar, Badge, Button, Col, Descriptions, Empty, Row, Space, Tabs, Timeline, Tooltip, Typography } from "antd"
 import moment from "moment"
@@ -26,7 +28,10 @@ const ContactCenter: React.FC = () => {
     )
 
     return (
-        <PageContainer title="Contact Center">
+        <PageContainer title="Contact Center" extra={
+            <Link to='/contact/list'>
+                <Button type="link" icon={<ArrowLeftOutlined />}>Go to contact list</Button>
+            </Link>}>
             <Row gutter={24}>
                 <Col span={8}>
                     <ProCard title="Genaral" extra={<ProfileExtra />}>
@@ -43,17 +48,17 @@ const ContactCenter: React.FC = () => {
                             </Space>
                         </div>
                         <Descriptions title="Informations" column={1} bordered size="small">
-                            <Descriptions.Item label="Email">{contact?.email}</Descriptions.Item>
-                            <Descriptions.Item label="Telephone">{contact?.phoneNumber}</Descriptions.Item>
-                            <Descriptions.Item label="Live">
+                            <Descriptions.Item key={0} label="Email">{contact?.email}</Descriptions.Item>
+                            <Descriptions.Item key={1} label="Telephone">{contact?.phoneNumber}</Descriptions.Item>
+                            <Descriptions.Item key={2} label="Live">
                                 <Badge status="processing" text="Active" />
                             </Descriptions.Item>
-                            <Descriptions.Item label="Remark">Empty</Descriptions.Item>
+                            <Descriptions.Item key={3} label="Remark">Empty</Descriptions.Item>
                         </Descriptions>
                     </ProCard>
                 </Col>
                 <Col span={16}>
-                    <ProCard title="Details">
+                    <ProCard title={<FormattedMessage id="details" />}>
                         <Tabs defaultActiveKey="1">
                             <TabPane tab="Activity" key="1">
                                 <div className="py-4">

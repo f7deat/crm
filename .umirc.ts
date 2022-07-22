@@ -16,7 +16,7 @@ export default defineConfig({
   },
   routes: [
     {
-      name: 'Account',
+      name: 'account',
       path: '/account',
       layout: false,
       routes: [
@@ -33,34 +33,34 @@ export default defineConfig({
     },
     {
       icon: 'home',
-      name: 'Home',
+      name: 'home',
       path: '/home',
       component: './Home',
     },
     {
       icon: 'message',
-      name: 'Conversation',
+      name: 'conversation',
       path: '/access',
       component: './Access',
     },
     {
       icon: 'fire',
-      name: 'Campain',
+      name: 'campain',
       path: '/table',
       component: './Table',
     },
     {
       icon: 'contacts',
-      name: 'Contact',
+      name: 'contact',
       path: '/contact',
       routes: [
         {
-          name: 'Contact List',
+          name: 'list',
           path: '/contact/list',
           component: './Contact/List'
         },
         {
-          name: 'Contact Center',
+          name: 'center',
           path: '/contact/center/:id',
           component: './Contact/Center',
           hideInMenu: true
@@ -69,7 +69,7 @@ export default defineConfig({
     },
     {
       icon: 'appstore',
-      name: 'Application',
+      name: 'application',
       path: '/application',
       component: './Application'
     }

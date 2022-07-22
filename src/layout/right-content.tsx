@@ -1,4 +1,5 @@
 import { LogoutOutlined, SettingOutlined, TranslationOutlined, UserOutlined } from "@ant-design/icons";
+import { setLocale } from "@umijs/max";
 import { useModel } from "@umijs/max"
 import { Avatar, Button, Dropdown, Menu, Space } from "antd"
 
@@ -28,12 +29,17 @@ const RightContent: React.FC = () => {
 
     return (
         <Space size={0}>
-            <Button type="link">
-                <TranslationOutlined />
-            </Button>
             <Avatar src={state.initialState?.user.avatar} />
             <Dropdown overlay={overLay}>
                 <Button type="link">{state.initialState?.user.email}</Button>
+            </Dropdown>
+            <Dropdown overlay={() => (
+                <Menu>
+                    <Menu.Item key={0} onClick={() => setLocale('en-US')}>English</Menu.Item>
+                    <Menu.Item key={1} onClick={() => setLocale('vi-VN')}>Vietnames</Menu.Item>
+                </Menu>
+            )}>
+                <TranslationOutlined />
             </Dropdown>
         </Space>
     )

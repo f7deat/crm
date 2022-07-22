@@ -17,15 +17,8 @@ const HomePage: React.FC = () => {
     data,
     xField: 'year',
     yField: 'value',
-    seriesField: 'category',
     xAxis: {
       type: 'time',
-    },
-    yAxis: {
-      label: {
-        // 数值格式化为千分位
-        formatter: (v: any) => v,
-      },
     }
   };
 
