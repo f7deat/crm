@@ -8,7 +8,7 @@ export default defineConfig({
   request: {
   },
   layout: {
-    title: 'crm.defzone.net',
+    title: 'DefZone.Net',
   },
   locale: {
     default: 'en-US',
@@ -63,6 +63,12 @@ export default defineConfig({
           name: 'center',
           path: '/contact/center/:id',
           component: './Contact/Center',
+          hideInMenu: true
+        },
+        {
+          name: 'setting',
+          path: '/contact/setting/:id',
+          component: './Contact/Setting',
           hideInMenu: true
         }
       ]

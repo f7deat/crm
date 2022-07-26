@@ -1,4 +1,5 @@
 import { LogoutOutlined, SettingOutlined, TranslationOutlined, UserOutlined } from "@ant-design/icons";
+import { history } from "@umijs/max";
 import { setLocale } from "@umijs/max";
 import { useModel } from "@umijs/max"
 import { Avatar, Button, Dropdown, Menu, Space } from "antd"
@@ -20,12 +21,19 @@ const RightContent: React.FC = () => {
         },
         {
             label: 'Logout',
-            key: 'item-3',
+            key: 'logout',
             icon: <LogoutOutlined />
         },
     ];
 
-    const overLay = (<Menu items={items} />)
+    const onMenuClick = (info: any) => {
+        if (info.key === 'logout') {
+            localStorage.clear();
+            history.push('/');
+        }
+    }
+
+    const overLay = (<Menu items={items} onClick={onMenuClick} />)
 
     return (
         <Space size={0}>

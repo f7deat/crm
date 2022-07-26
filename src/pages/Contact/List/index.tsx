@@ -66,7 +66,8 @@ const ContactList: React.FC<unknown> = () => {
     },
     {
       title: 'Created Date',
-      render: (_, record) => moment(record.createdDate).format('DD/MM/YYYY hh:mm:ss')
+      render: (_, record) => moment(record.createdDate).format('DD/MM/YYYY hh:mm:ss'),
+      hideInSearch: true
     },
     {
       title: 'Task',

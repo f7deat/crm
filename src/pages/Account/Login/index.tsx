@@ -1,9 +1,9 @@
 import Loading from "@/components/Loading";
 import { login, user } from "@/services/account";
-import { ProCard } from "@ant-design/pro-components";
+import { ProCard, ProFormCheckbox } from "@ant-design/pro-components";
 import ProForm, { ProFormText } from "@ant-design/pro-form";
 import { history } from "@umijs/max";
-import { Card, Layout } from "antd";
+import { Layout } from "antd";
 import { useEffect, useState } from "react";
 import './index.css';
 
@@ -15,11 +15,16 @@ const Login: React.FC = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        user().then(response => {
-            if (response) {
-                history.push('/home')
-            }
-        }).finally(() => setLoading(false))
+        const token = localStorage.getItem('def_token');
+        if (token) {
+            user().then(response => {
+                if (response) {
+                    history.push('/home')
+                }
+            }).finally(() => setLoading(false))
+        } else {
+            setLoading(false)
+        }
     }, [])
 
     const onFinish = async (values: any) => {
@@ -57,6 +62,7 @@ const Login: React.FC = () => {
                                 <Password label="Password" name='password'
                                     rules={[{ required: true, message: 'Please input your password!' }]}
                                 />
+                                <ProFormCheckbox.Group layout="vertical" options={['Remember me']} />
                             </ProForm>
                             <div className="copy-right">© 2022 <a href="https://defzone.net">DefZone</a> Inc.</div>
                         </ProCard>

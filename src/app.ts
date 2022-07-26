@@ -7,7 +7,7 @@ import RightContent from "./layout/right-content";
 import { user } from "./services/account";
 import './style.css';
 
-export interface InitialStateProps {
+export type InitialStateProps = {
   name: string;
   isAuthenticated: boolean;
   user: API.User;
@@ -19,7 +19,7 @@ export async function getInitialState(): Promise<InitialStateProps> {
   const response = await user();
   return {
     name: '@umijs/max',
-    isAuthenticated: response.succeeded,
+    isAuthenticated: response?.succeeded,
     user: response
   };
 }

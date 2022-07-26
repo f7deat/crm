@@ -1,5 +1,5 @@
 import { queryContact } from "@/services/contact"
-import { ArrowLeftOutlined, ArrowUpOutlined, EnvironmentOutlined, MessageOutlined, PhoneOutlined, PlusOutlined, RedEnvelopeOutlined } from "@ant-design/icons"
+import { ArrowLeftOutlined, ArrowUpOutlined, EditOutlined, EnvironmentOutlined, MessageOutlined, PhoneOutlined, PlusOutlined, RedEnvelopeOutlined } from "@ant-design/icons"
 import { PageContainer, ProCard, ProTable } from "@ant-design/pro-components"
 import { FormattedMessage } from "@umijs/max"
 import { Link } from "@umijs/max"
@@ -58,7 +58,11 @@ const ContactCenter: React.FC = () => {
                     </ProCard>
                 </Col>
                 <Col span={16}>
-                    <ProCard title={<FormattedMessage id="details" />}>
+                    <ProCard title={<FormattedMessage id="details" />} extra={
+                        <Link to={`/contact/setting/${id}`}>
+                            <Button icon={<EditOutlined />}></Button>
+                        </Link>
+                    }>
                         <Tabs defaultActiveKey="1">
                             <TabPane tab="Activity" key="1">
                                 <div className="py-4">

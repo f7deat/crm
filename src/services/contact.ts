@@ -26,3 +26,10 @@ export async function deleteContact(id: string) {
 export async function queryContact(id: string | undefined) {
   return request(`contact/${id}`);
 }
+
+export async function updateContact(body: API.Contact) {
+  return request(`contact/update`, {
+    method: 'POST',
+    data: body
+  })
+}
