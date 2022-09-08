@@ -4,7 +4,7 @@ import { PageContainer, ProCard, ProTable } from "@ant-design/pro-components"
 import { FormattedMessage } from "@umijs/max"
 import { Link } from "@umijs/max"
 import { useParams } from "@umijs/max"
-import { Avatar, Badge, Button, Col, Descriptions, Empty, Row, Space, Tabs, Timeline, Tooltip, Typography } from "antd"
+import { Avatar, Badge, Button, Col, Descriptions, Row, Space, Tabs, Timeline, Tooltip, Typography } from "antd"
 import moment from "moment"
 import { useEffect, useState } from "react"
 

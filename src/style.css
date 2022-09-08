@@ -25,11 +25,15 @@
 .justify-end {
     justify-content: flex-end;
 }
-
+.justify-between {
+    justify-content: space-between;
+}
 .items-center {
     align-items: center;
 }
-
+.mt-2 {
+    margin-top: .5rem;
+}
 .mb-2 {
     margin-bottom: 0.5rem;
 }
