@@ -5,6 +5,7 @@ export async function login(body: any) {
     return request(`user/password-sign-in`, {
       method: 'POST',
       data: body,
+      baseURL: body.baseURL
     });
 }
 

@@ -6,5 +6,6 @@ export default {
     'menu.contact.list': 'Danh sách',
     'menu.contact.center': 'Center',
     'menu.application': 'Application',
+    'menu.gallery': 'Thư viện',
     'details': 'Chi tiết'
 };

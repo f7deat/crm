@@ -78,6 +78,19 @@ export default defineConfig({
       name: 'application',
       path: '/application',
       component: './Application'
+    },
+    {
+      icon: 'appstore',
+      name: 'gallery',
+      path: '/gallery',
+      component: './Gallery',
+    }
+    , {
+      icon: 'appstore',
+      name: 'gallery',
+      path: '/gallery/center/:id',
+      component: './Gallery/Center',
+      hideInMenu: true
     }
   ],
   npmClient: 'npm',

@@ -3,6 +3,7 @@
 import type { BasicLayoutProps } from "@ant-design/pro-components";
 import type { RequestConfig } from "@umijs/max";
 import type { RequestOptions } from "./.umi/plugin-request/request";
+import { DEFAULT_HOST } from "./constants";
 import RightContent from "./layout/right-content";
 import { user } from "./services/account";
 import './style.css';
@@ -40,7 +41,8 @@ export const request: RequestConfig = {
   requestInterceptors: [
     (config: RequestOptions) => {
       const token = localStorage.getItem('def_token');
-      config.baseURL = 'https://defzone.net/api';
+      const baseURL = localStorage.getItem('baseURL');
+      config.baseURL = baseURL || DEFAULT_HOST;
       config.headers = {
         authorization: `Bearer ${token}`,
       }
