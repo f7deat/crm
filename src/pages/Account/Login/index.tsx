@@ -51,7 +51,7 @@ const Login: React.FC = () => {
         login(values).then(response => {
             if (response.succeeded) {
                 localStorage.setItem('def_token', response.token || '');
-                history.push('/home')
+                window.location.reload();
             }
         })
     }

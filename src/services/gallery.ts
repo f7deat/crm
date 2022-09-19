@@ -29,3 +29,19 @@ export async function queryGallery(
         data: params
     })
   }
+
+  export async function queryPhoto(id?: string) {
+    return request(`gallery/list-photo/${id}`);
+  }
+
+  export async function deletePhoto(id: string) {
+    return request(`gallery/delete-photo/${id}`, {
+      method: 'POST'
+    })
+  }
+
+  export async function deleteGallery(id: string) {
+    return request(`gallery/delete/${id}`, {
+      method: 'POST'
+    })
+  }

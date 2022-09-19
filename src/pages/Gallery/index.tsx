@@ -1,14 +1,24 @@
-import { addGallery, queryGallery } from "@/services/gallery";
-import { FolderOutlined, DeleteOutlined } from "@ant-design/icons";
+import { addGallery, deleteGallery, queryGallery } from "@/services/gallery";
+import { FolderOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { ActionType, ModalForm, PageContainer, ProDescriptionsItemProps, ProFormText, ProFormTextArea, ProTable } from "@ant-design/pro-components"
 import { Link } from "@umijs/max";
-import { Popover, Button, Divider, Popconfirm, message } from "antd";
-import moment from "moment";
+import { Button, Divider, Popconfirm, message } from "antd";
 import { useRef, useState } from "react";
 
 const Gallery: React.FC = () => {
     const actionRef = useRef<ActionType>();
     const [visible, setVisible] = useState(false);
+
+    const onConfirm = (id: string) => {
+        deleteGallery(id).then(response => {
+            if (response.succeeded) {
+                actionRef.current?.reload();
+                message.success('succeeded');
+            } else {
+                message.error(response.message);
+            }
+        })
+    }
 
     const columns: ProDescriptionsItemProps<API.Gallery>[] = [
         {
@@ -34,7 +44,7 @@ const Gallery: React.FC = () => {
                     <Button icon={<FolderOutlined />} type="primary" />
                     </Link>
                     <Divider type="vertical" />
-                    <Popconfirm title="Are you sure delete this?">
+                    <Popconfirm title="Are you sure delete this?" onConfirm={() => onConfirm(record.id)}>
                         <Button icon={<DeleteOutlined />} danger type="primary" />
                     </Popconfirm>
                 </>
@@ -54,7 +64,7 @@ const Gallery: React.FC = () => {
     }
 
     return (
-        <PageContainer extra={<Button type="primary" onClick={() => setVisible(true)}>Add new</Button>}>
+        <PageContainer extra={<Button type="primary" onClick={() => setVisible(true)} icon={<PlusOutlined />}>Add new</Button>}>
             <ProTable<API.Gallery>
                 headerTitle="Lead"
                 actionRef={actionRef}
