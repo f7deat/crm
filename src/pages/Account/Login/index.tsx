@@ -3,7 +3,7 @@ import { login, user } from "@/services/account";
 import { ProCard, ProFormCheckbox, StepsForm } from "@ant-design/pro-components";
 import { ProFormText } from "@ant-design/pro-form";
 import { history } from "@umijs/max";
-import { FormInstance, Layout } from "antd";
+import { FormInstance, Layout, message } from "antd";
 import { useEffect, useRef, useState } from "react";
 import './index.css';
 
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
         login(values).then(response => {
             if (response.succeeded) {
                 localStorage.setItem('def_token', response.token || '');
-                window.location.reload();
+                history.push('/home')
             }
         })
     }
@@ -65,6 +65,7 @@ const Login: React.FC = () => {
             }
             return true;
         }
+        message.warn('Please input valid URL. e.g: https://defzone.net');
         return false;
     }
 

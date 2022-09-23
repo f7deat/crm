@@ -1,5 +1,5 @@
 import { deletePhoto, queryPhoto } from "@/services/gallery"
-import { DeleteOutlined, EditOutlined, EllipsisOutlined, SettingOutlined, UploadOutlined } from "@ant-design/icons"
+import { DeleteOutlined, EditOutlined, EllipsisOutlined, FolderOutlined, UploadOutlined } from "@ant-design/icons"
 import { PageContainer, ProCard } from "@ant-design/pro-components"
 import { useParams } from "@umijs/max"
 import { Button, Col, Row, Image, Upload, UploadProps, message, Popconfirm, Space } from "antd"
@@ -53,16 +53,18 @@ const GalleryCenter: React.FC = () => {
     }
 
     return (
-        <PageContainer title="Photo of gallery">
-            <div className="mb-4"><ProCard>
-                <Upload {...props}>
+        <PageContainer title="Photo of gallery" extra={<Button icon={<EditOutlined />}>Edit gallery</Button>}>
+            <div className="mb-4">
+                <ProCard>
                     <Space>
-                        <Button icon={<UploadOutlined />}>Upload</Button>
+                        <Upload {...props}>
+                            <Button icon={<UploadOutlined />}>Upload</Button>
+                        </Upload>
                         or
-                        <Button icon={<SettingOutlined />}>Choose from gallery</Button>
+                        <Button icon={<FolderOutlined />}>Choose from gallery</Button>
                     </Space>
-                </Upload>
-            </ProCard></div>
+                </ProCard>
+            </div>
             <Row gutter={16}>
                 {
                     photos?.map(photo => (

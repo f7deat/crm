@@ -53,25 +53,19 @@ export default defineConfig({
       icon: 'contacts',
       name: 'contact',
       path: '/contact',
-      routes: [
-        {
-          name: 'list',
-          path: '/contact/list',
-          component: './Contact/List'
-        },
-        {
-          name: 'center',
-          path: '/contact/center/:id',
-          component: './Contact/Center',
-          hideInMenu: true
-        },
-        {
-          name: 'setting',
-          path: '/contact/setting/:id',
-          component: './Contact/Setting',
-          hideInMenu: true
-        }
-      ]
+      component: './Contact/List'
+    },
+    {
+      name: 'setting',
+      path: '/contact/setting/:id',
+      component: './Contact/Setting',
+      hideInMenu: true
+    },
+    {
+      name: 'center',
+      path: '/contact/center/:id',
+      component: './Contact/Center',
+      hideInMenu: true
     },
     {
       icon: 'appstore',
