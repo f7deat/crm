@@ -81,7 +81,7 @@ const GalleryCenter: React.FC = () => {
                                 <EditOutlined key="edit" />,
                                 <EllipsisOutlined key="ellipsis" />,
                             ]}>
-                                <Image src={photo.url} height={150} width="100%" />
+                                <Image src={photo.url} height={150} width="100%" className="object-fit-cover" />
                             </ProCard>
                         </Col>
                     ))

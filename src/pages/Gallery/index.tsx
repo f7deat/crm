@@ -1,12 +1,13 @@
-import { addGallery, deleteGallery, queryGallery } from "@/services/gallery";
-import { FolderOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { ActionType, ModalForm, PageContainer, ProDescriptionsItemProps, ProFormText, ProFormTextArea, ProTable } from "@ant-design/pro-components"
+import { addGallery, deleteGallery, queryGallery, queryGetGallery } from "@/services/gallery";
+import { FolderOutlined, DeleteOutlined, PlusOutlined, EditOutlined } from "@ant-design/icons";
+import { ActionType, ModalForm, PageContainer, ProDescriptionsItemProps, ProFormInstance, ProFormText, ProFormTextArea, ProTable } from "@ant-design/pro-components"
 import { Link } from "@umijs/max";
 import { Button, Divider, Popconfirm, message } from "antd";
 import { useRef, useState } from "react";
 
 const Gallery: React.FC = () => {
     const actionRef = useRef<ActionType>();
+    const formRef = useRef<ProFormInstance>();
     const [visible, setVisible] = useState(false);
 
     const onConfirm = (id: string) => {
@@ -16,6 +17,28 @@ const Gallery: React.FC = () => {
                 message.success('succeeded');
             } else {
                 message.error(response.message);
+            }
+        })
+    }
+
+    const handleUpdate = (id: string) => {
+        queryGetGallery(id).then(response => {
+            if (response.succeeded) {
+                formRef.current?.setFields([
+                    {
+                        name: 'id',
+                        value: response.data.id
+                    },
+                    {
+                        name: 'name',
+                        value: response.data.name
+                    },
+                    {
+                        name: 'description',
+                        value: response.data.description
+                    }
+                ]);
+                setVisible(true);
             }
         })
     }
@@ -40,6 +63,8 @@ const Gallery: React.FC = () => {
             valueType: 'option',
             render: (_, record) => (
                 <>
+                <Button icon={<EditOutlined />} onClick={() => handleUpdate(record.id)} />
+                <Divider type="vertical" />
                     <Link to={`/gallery/center/${record.id}`}>
                     <Button icon={<FolderOutlined />} type="primary" />
                     </Link>
@@ -75,9 +100,10 @@ const Gallery: React.FC = () => {
                 request={queryGallery}
                 columns={columns}
             />
-            <ModalForm visible={visible} onVisibleChange={setVisible} onFinish={onFinish}>
-                <ProFormText label="Name" name="name"></ProFormText>
-                <ProFormTextArea label="Description" name="description"></ProFormTextArea>
+            <ModalForm visible={visible} onVisibleChange={setVisible} onFinish={onFinish} formRef={formRef}>
+                <ProFormText name="id" hidden />
+                <ProFormText label="Name" name="name" required />
+                <ProFormTextArea label="Description" name="description" />
             </ModalForm>
         </PageContainer>
     )

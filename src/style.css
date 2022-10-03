@@ -41,7 +41,9 @@
 .mb-4 {
     margin-bottom: 1rem;
 }
-
+.object-fit-cover {
+    object-fit: cover;
+}
 .py-4 {
     padding-top: 1rem;
     padding-bottom: 1rem;

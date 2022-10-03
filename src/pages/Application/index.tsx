@@ -1,12 +1,20 @@
+import { queryApplication } from "@/services/application"
 import { EditOutlined, EllipsisOutlined, FacebookOutlined, GoogleOutlined, InstagramOutlined, SettingOutlined, TwitterOutlined } from "@ant-design/icons"
 import { PageContainer, ProCard } from "@ant-design/pro-components"
 import { Avatar, Card, Col, Row } from "antd"
-import { useState } from "react"
-import SendGridSetting from "./components/sendgrid-setting"
+import { useEffect, useState } from "react"
+import SendGrid from "./components/sendgrid"
 
 const Application: React.FC = () => {
 
-    const [visible, setVisible] = useState<boolean>(false)
+    const [visible, setVisible] = useState<boolean>(false);
+    const [applications, setApplications] = useState<API.ListApplicationItem>();
+
+    useEffect(() => {
+        queryApplication().then(response => {
+            setApplications(response);
+        })
+    }, [])
     
     return (
         <PageContainer title="Application">
@@ -79,7 +87,7 @@ const Application: React.FC = () => {
                     </ProCard>
                 </Col>
             </Row>
-            <SendGridSetting visible={visible} setVisible={setVisible} />
+            <SendGrid visible={visible} setVisible={setVisible} />
         </PageContainer>
     )
 }

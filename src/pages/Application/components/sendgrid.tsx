@@ -1,11 +1,11 @@
 import { ModalForm, ProFormText } from "@ant-design/pro-components"
 
-type SendGridSettingProps = {
+type SendGridProps = {
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const SendGridSetting: React.FC<SendGridSettingProps> = (props) => {
+const SendGrid: React.FC<SendGridProps> = (props) => {
 
     const onFinish = async (values: any) => {
         console.log(values)
@@ -18,4 +18,4 @@ const SendGridSetting: React.FC<SendGridSettingProps> = (props) => {
     )
 }
 
-export default SendGridSetting
+export default SendGrid
