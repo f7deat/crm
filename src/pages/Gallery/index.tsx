@@ -1,8 +1,8 @@
 import { addGallery, deleteGallery, queryGallery, queryGetGallery } from "@/services/gallery";
 import { FolderOutlined, DeleteOutlined, PlusOutlined, EditOutlined } from "@ant-design/icons";
-import { ActionType, ModalForm, PageContainer, ProDescriptionsItemProps, ProFormInstance, ProFormText, ProFormTextArea, ProTable } from "@ant-design/pro-components"
+import { ActionType, ModalForm, PageContainer, ProDescriptionsItemProps, ProFormCheckbox, ProFormInstance, ProFormText, ProFormTextArea, ProTable } from "@ant-design/pro-components"
 import { Link } from "@umijs/max";
-import { Button, Divider, Popconfirm, message } from "antd";
+import { Button, Divider, Popconfirm, message, Switch, Space, Typography } from "antd";
 import { useRef, useState } from "react";
 
 const Gallery: React.FC = () => {
@@ -39,6 +39,8 @@ const Gallery: React.FC = () => {
                     }
                 ]);
                 setVisible(true);
+            } else {
+                message.warning(response.message)
             }
         })
     }
@@ -63,10 +65,10 @@ const Gallery: React.FC = () => {
             valueType: 'option',
             render: (_, record) => (
                 <>
-                <Button icon={<EditOutlined />} onClick={() => handleUpdate(record.id)} />
-                <Divider type="vertical" />
+                    <Button icon={<EditOutlined />} onClick={() => handleUpdate(record.id)} />
+                    <Divider type="vertical" />
                     <Link to={`/gallery/center/${record.id}`}>
-                    <Button icon={<FolderOutlined />} type="primary" />
+                        <Button icon={<FolderOutlined />} type="primary" />
                     </Link>
                     <Divider type="vertical" />
                     <Popconfirm title="Are you sure delete this?" onConfirm={() => onConfirm(record.id)}>
@@ -100,10 +102,14 @@ const Gallery: React.FC = () => {
                 request={queryGallery}
                 columns={columns}
             />
-            <ModalForm visible={visible} onVisibleChange={setVisible} onFinish={onFinish} formRef={formRef}>
+            <ModalForm visible={visible} onVisibleChange={setVisible} onFinish={onFinish} formRef={formRef} title="Gallery settings">
                 <ProFormText name="id" hidden />
                 <ProFormText label="Name" name="name" required />
                 <ProFormTextArea label="Description" name="description" />
+                <Space>
+                    <Switch />
+                    <Typography.Text>Using API</Typography.Text>
+                </Space>
             </ModalForm>
         </PageContainer>
     )
