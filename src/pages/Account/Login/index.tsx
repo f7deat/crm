@@ -52,6 +52,8 @@ const Login: React.FC = () => {
             if (response.succeeded) {
                 localStorage.setItem('def_token', response.token || '');
                 history.push('/home')
+            } else {
+                message.error('Username or password incorrect!')
             }
         })
     }

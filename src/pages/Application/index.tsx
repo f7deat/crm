@@ -1,4 +1,4 @@
-import { queryApplication } from "@/services/application"
+import { queryApplication, queryConfig } from "@/services/application"
 import { AppstoreAddOutlined, EditOutlined, EllipsisOutlined, FacebookOutlined, GoogleOutlined, InstagramOutlined, SettingOutlined, TwitterOutlined } from "@ant-design/icons"
 import { PageContainer, ProCard } from "@ant-design/pro-components"
 import { Avatar, Card, Col, Row } from "antd"
@@ -11,12 +11,22 @@ const Application: React.FC = () => {
     const [visible, setVisible] = useState<boolean>(false);
     const [facebookVisible, setFacebookVisible] = useState<boolean>(false);
     const [applications, setApplications] = useState<API.ListApplicationItem>();
+    const [config, setConfig] = useState<any>();
 
     useEffect(() => {
         queryApplication().then(response => {
             setApplications(response);
         })
-    }, [])
+    }, []);
+
+    const handleFacebookConfig = () => {
+        queryConfig('Facebook').then(response => {
+            if (response.succeeded && response.data?.value) {
+                setConfig(JSON.parse(response.data.value));
+            }
+            setFacebookVisible(true);
+        })
+    }
     
     return (
         <PageContainer title="Application">
@@ -36,7 +46,7 @@ const Application: React.FC = () => {
                 </Col>
                 <Col span={6}>
                     <ProCard actions={[
-                        <SettingOutlined key="setting" onClick={() => setFacebookVisible(true)} />,
+                        <SettingOutlined key="setting" onClick={handleFacebookConfig} />,
                         <EditOutlined key="edit" />,
                         <EllipsisOutlined key="ellipsis" />,
                     ]}>
@@ -90,7 +100,7 @@ const Application: React.FC = () => {
                 </Col>
             </Row>
             <SendGrid visible={visible} setVisible={setVisible} />
-            <Facebook visible={facebookVisible} setVisible={setFacebookVisible} />
+            <Facebook visible={facebookVisible} setVisible={setFacebookVisible} config={config} />
         </PageContainer>
     )
 }
