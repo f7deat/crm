@@ -4,7 +4,8 @@ export default {
     'menu.conversation': 'Conversation',
     'menu.contact': 'Contact',
     'menu.contact.list': 'Danh sách',
-    'menu.contact.center': 'Center',
+    'menu.center': 'Center',
+    'menu.setting': 'Cài đặt',
     'menu.application': 'Application',
     'menu.gallery': 'Thư viện',
     'details': 'Chi tiết'

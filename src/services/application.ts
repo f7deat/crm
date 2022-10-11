@@ -1,7 +1,7 @@
 import { request } from "@umijs/max";
 
 export async function queryApplication() {
-    return request(`appsettings/list`);
+    return request(`appsetting/all`);
 }
 
 export async function exchangeToken(appId: string, appSecret: string, shortLiveToken: string) {
@@ -22,4 +22,11 @@ export async function facebookSaveConfig(data: API.FacebookConfig) {
 
 export async function queryConfig(key: string) {
     return request(`appsetting/config/${key}`);
+}
+
+export async function saveSendGrid(data: API.SendGridConfig) {
+    return request(`appsetting/sendgrid/save`, {
+        method: 'POST',
+        data: data
+    });
 }

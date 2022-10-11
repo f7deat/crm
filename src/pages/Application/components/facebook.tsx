@@ -43,7 +43,7 @@ const Facebook: React.FC<FacebookProps> = (props) => {
                 <Col span={16}>
                     <ProFormText name="appId" label="App Id" required />
                     <ProFormText name="appSecret" label="App Secret" required />
-                    <ProFormTextArea name="accessToken" label="Access Token" required tooltip="Input long live token exchanged from right panel" />
+                    <ProFormTextArea name="accessToken" label="Access Token" tooltip="Input long live token exchanged from right panel" />
                 </Col>
                 <Col span={8} style={{borderLeft: '1px dashed #d1d1d1'}}>
                     <ProFormTextArea label="Short live token" tooltip="Got it from: https://graph.facebook.com/" name="shortLiveToken" />

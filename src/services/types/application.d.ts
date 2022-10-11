@@ -7,4 +7,7 @@ declare namespace API {
         appSecret: string;
         accessToken: string;
     }
+    type SendGridConfig = {
+        apiKey: string;
+    }
 } 

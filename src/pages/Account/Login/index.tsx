@@ -67,7 +67,7 @@ const Login: React.FC = () => {
             }
             return true;
         }
-        message.warn('Please input valid URL. e.g: https://defzone.net');
+        message.warn('Please input valid URL. e.g: https://example.com');
         return false;
     }
 
@@ -93,7 +93,7 @@ const Login: React.FC = () => {
                                 <StepsForm.StepForm onFinish={handleNexStep}>
                                     <ProFormText label="Host" name="host" 
                                     rules={[{ required: true, message: 'Please input your host!' }]}
-                                    placeholder="https://defzone.net"
+                                    placeholder="https://example.com"
                                 />
                                 </StepsForm.StepForm>
                                 <StepsForm.StepForm>

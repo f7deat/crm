@@ -4,8 +4,8 @@ export default {
     'menu.conversation': 'Conversation',
     'menu.contact': 'Contact',
     'menu.contact.list': 'List',
-    'menu.contact.center': 'Center',
-    'menu.contact.setting': 'Setting',
+    'menu.center': 'Center',
+    'menu.setting': 'Setting',
     'menu.application': 'Application',
     'menu.gallery': 'Gallery',
     'details': 'Details'

@@ -17,7 +17,12 @@
 .flex-col {
     flex-direction: column;
 }
-
+.flex-grow {
+    flex-grow: 1;
+}
+.gap-4 {
+    gap: 1rem;
+}
 .justify-center {
     justify-content: center;
 }

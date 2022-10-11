@@ -1,6 +1,6 @@
 import { addGallery, deleteGallery, queryGallery, queryGetGallery } from "@/services/gallery";
 import { FolderOutlined, DeleteOutlined, PlusOutlined, EditOutlined } from "@ant-design/icons";
-import { ActionType, ModalForm, PageContainer, ProDescriptionsItemProps, ProFormCheckbox, ProFormInstance, ProFormText, ProFormTextArea, ProTable } from "@ant-design/pro-components"
+import { ActionType, ModalForm, PageContainer, ProDescriptionsItemProps, ProFormCheckbox, ProFormInstance, ProFormItem, ProFormText, ProFormTextArea, ProTable } from "@ant-design/pro-components"
 import { Link } from "@umijs/max";
 import { Button, Divider, Popconfirm, message, Switch, Space, Typography } from "antd";
 import { useRef, useState } from "react";
@@ -9,6 +9,7 @@ const Gallery: React.FC = () => {
     const actionRef = useRef<ActionType>();
     const formRef = useRef<ProFormInstance>();
     const [visible, setVisible] = useState(false);
+    const [normalizedNameHidden, setNormalizedNameHidden] = useState(true);
 
     const onConfirm = (id: string) => {
         deleteGallery(id).then(response => {
@@ -90,6 +91,10 @@ const Gallery: React.FC = () => {
         })
     }
 
+    const handleUsingApi = (checked: boolean) => {
+        setNormalizedNameHidden(!checked);
+    }
+
     return (
         <PageContainer extra={<Button type="primary" onClick={() => setVisible(true)} icon={<PlusOutlined />}>Add new</Button>}>
             <ProTable<API.Gallery>
@@ -106,10 +111,11 @@ const Gallery: React.FC = () => {
                 <ProFormText name="id" hidden />
                 <ProFormText label="Name" name="name" required />
                 <ProFormTextArea label="Description" name="description" />
-                <Space>
-                    <Switch />
-                    <Typography.Text>Using API</Typography.Text>
-                </Space>
+                <ProFormItem name="isUsingAPI" valuePropName="checked">
+                    <Switch onChange={handleUsingApi} checkedChildren={<>API</>} />
+                </ProFormItem>
+                <ProFormText label="Normalized name" name="normalizedName" hidden={normalizedNameHidden} />
+                <ProFormText label="Thumbnail" name="thumbnail" hidden={normalizedNameHidden} />
             </ModalForm>
         </PageContainer>
     )

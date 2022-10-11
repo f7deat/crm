@@ -1,16 +1,16 @@
 import { queryApplication, queryConfig } from "@/services/application"
 import { AppstoreAddOutlined, EditOutlined, EllipsisOutlined, FacebookOutlined, GoogleOutlined, InstagramOutlined, SettingOutlined, TwitterOutlined } from "@ant-design/icons"
 import { PageContainer, ProCard } from "@ant-design/pro-components"
-import { Avatar, Card, Col, Row } from "antd"
+import { Avatar, Card, Col, message, Row, Space } from "antd"
 import { useEffect, useState } from "react"
 import Facebook from "./components/facebook"
 import SendGrid from "./components/sendgrid"
 
 const Application: React.FC = () => {
 
-    const [visible, setVisible] = useState<boolean>(false);
+    const [sendGridVisible, setSendGridVisible] = useState<boolean>(false);
     const [facebookVisible, setFacebookVisible] = useState<boolean>(false);
-    const [applications, setApplications] = useState<API.ListApplicationItem>();
+    const [applications, setApplications] = useState<API.ListApplicationItem[]>();
     const [config, setConfig] = useState<any>();
 
     useEffect(() => {
@@ -19,87 +19,45 @@ const Application: React.FC = () => {
         })
     }, []);
 
-    const handleFacebookConfig = () => {
-        queryConfig('Facebook').then(response => {
-            if (response.succeeded && response.data?.value) {
-                setConfig(JSON.parse(response.data.value));
-            }
-            setFacebookVisible(true);
-        })
+    const handleOpenConfig = async (key: string) => {
+        const response = await queryConfig(key);
+        if (response.succeeded && response.data.value) {
+            setConfig(JSON.parse(response.data.value));
+        }
+        switch (key) {
+            case 'Facebook':
+                setFacebookVisible(true);
+                break;
+            case 'SendGrid':
+                setSendGridVisible(true);
+                break;
+            default:
+                break;
+        }
     }
-    
+
     return (
         <PageContainer title="Application">
-            <Row gutter={24} className="mb-4">
-                <Col span={6}>
-                    <ProCard actions={[
-                        <SettingOutlined key="setting" />,
-                        <EditOutlined key="edit" />,
-                        <EllipsisOutlined key="ellipsis" />,
-                    ]}>
-                        <Card.Meta
-                            avatar={<Avatar icon={<GoogleOutlined />} />}
-                            title="Google"
-                            description="Connect to Google"
-                        />
-                    </ProCard>
-                </Col>
-                <Col span={6}>
-                    <ProCard actions={[
-                        <SettingOutlined key="setting" onClick={handleFacebookConfig} />,
-                        <EditOutlined key="edit" />,
-                        <EllipsisOutlined key="ellipsis" />,
-                    ]}>
-                        <Card.Meta
-                            avatar={<Avatar icon={<FacebookOutlined />} />}
-                            title="Facebook"
-                            description="Connect to Facebook"
-                        />
-                    </ProCard>
-                </Col>
-                <Col span={6}>
-                    <ProCard actions={[
-                        <SettingOutlined key="setting" />,
-                        <EditOutlined key="edit" />,
-                        <EllipsisOutlined key="ellipsis" />,
-                    ]}>
-                        <Card.Meta
-                            avatar={<Avatar icon={<InstagramOutlined />} />}
-                            title="Instagram"
-                            description="Connect to Instagram"
-                        />
-                    </ProCard>
-                </Col>
-                <Col span={6}>
-                    <ProCard actions={[
-                        <SettingOutlined key="setting" />,
-                        <EditOutlined key="edit" />,
-                        <EllipsisOutlined key="ellipsis" />,
-                    ]}>
-                        <Card.Meta
-                            avatar={<Avatar icon={<TwitterOutlined />} />}
-                            title="Twitter"
-                            description="Connect to Twitter"
-                        />
-                    </ProCard>
-                </Col>
+            <Row gutter={[16, 16]}>
+                {
+                    applications?.map(application => (
+                        <Col span={6}>
+                            <ProCard key={application.name} actions={[
+                            <SettingOutlined key="setting" onClick={() => handleOpenConfig(application.name)} />,
+                            <EditOutlined key="edit" />,
+                            <EllipsisOutlined key="ellipsis" />,
+                        ]}>
+                            <Card.Meta
+                                avatar={<Avatar icon={<FacebookOutlined />} />}
+                                title={application.name}
+                                description={`Connect to ${application.name}`}
+                            />
+                        </ProCard>
+                        </Col>
+                    ))
+                }
             </Row>
-            <Row gutter={24}>
-                <Col span={6}>
-                    <ProCard actions={[
-                        <SettingOutlined key="setting" onClick={() => setVisible(true)} />,
-                        <EditOutlined key="edit" />,
-                        <EllipsisOutlined key="ellipsis" />,
-                    ]}>
-                        <Card.Meta
-                            avatar={<Avatar icon={<AppstoreAddOutlined />} />}
-                            title="SendGrid"
-                            description="Connect to SendGrid"
-                        />
-                    </ProCard>
-                </Col>
-            </Row>
-            <SendGrid visible={visible} setVisible={setVisible} />
+            <SendGrid visible={sendGridVisible} setVisible={setSendGridVisible} initialValues={config} />
             <Facebook visible={facebookVisible} setVisible={setFacebookVisible} config={config} />
         </PageContainer>
     )
