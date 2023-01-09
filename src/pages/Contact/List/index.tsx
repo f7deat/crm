@@ -8,7 +8,7 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import { Link } from '@umijs/max';
-import { Button, Divider, message, Popconfirm, Popover } from 'antd';
+import { Button, Divider, Empty, message, Popconfirm, Popover } from 'antd';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
 import ContactTool from '../components/tool';
@@ -46,7 +46,7 @@ const ContactList: React.FC<unknown> = () => {
       title: 'Name',
       render: (_, record) => (
         <Link to={`/contact/center/${record.id}`}>
-          <a>{record.fullName}</a>
+          <a>{record.name}</a>
         </Link>
       ),
       tip: 'Include fist name and last name',
@@ -75,7 +75,7 @@ const ContactList: React.FC<unknown> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          <Popover content={ViewMore(JSON.parse(record.metaData))}>
+          <Popover content={<Empty />}>
             <Button icon={<FolderOutlined />} type="primary" />
           </Popover>
           <Divider type="vertical" />
