@@ -14,6 +14,9 @@ export default defineConfig({
     default: 'en-US',
     antd: true
   },
+  history: {
+    type: 'hash'
+  },
   routes: [
     {
       name: 'account',
@@ -69,17 +72,28 @@ export default defineConfig({
     },
     {
       icon: 'appstore',
-      name: 'application',
-      path: '/application',
-      component: './Application'
+      name: 'applications',
+      path: '/applications',
+      routes: [
+        {
+          path: '/applications',
+          component: './Application'
+        },
+        {
+          name: 'sendGrid',
+          path: '/applications/sendgrid',
+          component: './Application/sendgrid',
+          hideInMenu: true
+        }
+      ]
     },
     {
       icon: 'appstore',
       name: 'gallery',
       path: '/gallery',
       component: './Gallery',
-    }
-    , {
+    },
+    {
       icon: 'appstore',
       name: 'gallery',
       path: '/gallery/center/:id',

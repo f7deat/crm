@@ -9,5 +9,9 @@ declare namespace API {
     }
     type SendGridConfig = {
         apiKey: string;
+        from: {
+            name: string;
+            email: string;
+        }
     }
 } 

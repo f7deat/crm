@@ -21,11 +21,18 @@ export async function facebookSaveConfig(data: API.FacebookConfig) {
 }
 
 export async function queryConfig(key: string) {
-    return request(`appsetting/config/${key}`);
+    return request(`appsetting/${key}`);
 }
 
 export async function saveSendGrid(data: API.SendGridConfig) {
     return request(`appsetting/sendgrid/save`, {
+        method: 'POST',
+        data: data
+    });
+}
+
+export async function testSendMail(data: any) {
+    return request(`appsetting/test-send-mail`, {
         method: 'POST',
         data: data
     });

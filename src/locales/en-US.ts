@@ -6,7 +6,8 @@ export default {
     'menu.contact.list': 'List',
     'menu.center': 'Center',
     'menu.setting': 'Setting',
-    'menu.application': 'Application',
+    'menu.applications': 'Application',
+    'menu.applications.sendGrid': 'SendGrid',
     'menu.gallery': 'Gallery',
     'details': 'Details'
 };
