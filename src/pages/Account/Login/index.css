@@ -4,9 +4,9 @@
     padding-top: 0.5rem;
     font-size: small;
 }
-
-@media screen and (min-width: 768px) {
-    .login-wrapper {
-        width: 50vw;
-    }
+.login-form {
+    padding: 3rem 4rem;
+}
+.login-social {
+    padding: 1rem 0;
 }

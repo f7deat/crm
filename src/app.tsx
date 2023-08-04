@@ -1,9 +1,9 @@
-import type { BasicLayoutProps } from "@ant-design/pro-components";
 import type { RequestConfig } from "@umijs/max";
 import type { RequestOptions } from "./.umi/plugin-request/request";
 import RightContent from "./layout/right-content";
 import { user } from "./services/account";
 import './style.css';
+import { RunTimeLayoutConfig } from "@umijs/max";
 
 export type InitialStateProps = {
   name: string;
@@ -18,7 +18,7 @@ export async function getInitialState(): Promise<InitialStateProps> {
   };
 }
 
-export const layout: BasicLayoutProps = () => {
+export const layout: RunTimeLayoutConfig = () => {
   return {
     logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
     menu: {
