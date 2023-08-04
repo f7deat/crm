@@ -61,7 +61,7 @@ const HomePage: React.FC = () => {
               <Avatar src={initialState.initialState?.user.avatar} size={100} />
               <div>
                 <Typography.Title level={3}>
-                  Hi, {initialState.initialState?.user.email.split('@')[0]}
+                  Hi, {initialState.initialState?.user?.email?.split('@')[0]}
                 </Typography.Title>
                 <Space>
                   Point: <b>{initialState.initialState?.user.point}</b>

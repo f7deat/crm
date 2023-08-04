@@ -4,7 +4,7 @@ import { ProCard, ProFormCheckbox, StepsForm } from "@ant-design/pro-components"
 import { ProFormText } from "@ant-design/pro-form";
 import { history } from "@umijs/max";
 import { Button, Col, Divider, FormInstance, Layout, Row, message } from "antd";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import './index.css';
 import { Helmet } from "@umijs/max";
 import { ApartmentOutlined, FacebookOutlined, GoogleOutlined } from "@ant-design/icons";
@@ -86,7 +86,7 @@ const Login: React.FC = () => {
                 ) : (
                     <Content>
                         <Row gutter={16}>
-                            <Col span={8}>
+                            <Col md={8}>
                                 <ProCard className="h-screen">
                                     <div className="flex items-center justify-center gap-2 py-4 relative" style={{
                                         paddingTop: 92
@@ -110,10 +110,13 @@ const Login: React.FC = () => {
                                                 resetText: 'Reset'
                                             }
                                         }}
+                                        containerStyle={{
+                                            minWidth: 0
+                                        }}
                                             formRef={formRef}
                                             onFinish={onFinish}>
                                             <StepsForm.StepForm onFinish={handleNexStep}>
-                                                <ProFormText label="Host" name="host" width="md"
+                                                <ProFormText label="Host" name="host"
                                                     rules={[{ required: true, message: 'Please input your host!' }]}
                                                     placeholder="https://example.com"
                                                 />
@@ -125,7 +128,7 @@ const Login: React.FC = () => {
                                                 <Password label="Password" name='password'
                                                     rules={[{ required: true, message: 'Please input your password!' }]}
                                                 />
-                                                <ProFormCheckbox.Group layout="vertical" options={['Remember me']} />
+                                                <ProFormCheckbox label={'Remember me'} name="rememberMe" />
                                             </StepsForm.StepForm>
                                         </StepsForm>
                                         <Divider />
@@ -137,7 +140,7 @@ const Login: React.FC = () => {
                                     <div className="copy-right">© 2022 <a href="https://defzone.net">DefZone</a> Inc.</div>
                                 </ProCard>
                             </Col>
-                            <Col span={16}>
+                            <Col md={16}>
 
                             </Col>
                         </Row>
