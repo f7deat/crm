@@ -11,3 +11,8 @@
 /.mfsu
 pnpm-lock.yaml
 package-lock.json
+/.vs/slnx.sqlite
+/.vs/crm/FileContentIndex
+/.vs/ProjectSettings.json
+.vs/VSWorkspaceState.json
+.vs/crm/v17/.wsuo

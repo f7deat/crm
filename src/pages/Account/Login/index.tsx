@@ -123,7 +123,7 @@ const Login: React.FC = () => {
                                             </StepsForm.StepForm>
                                             <StepsForm.StepForm>
                                                 <ProFormText label="Email" name="username"
-                                                    rules={[{ required: true, message: 'Please input your email!', type: 'email' }]}
+                                                    rules={[{ required: true }]}
                                                 />
                                                 <Password label="Password" name='password'
                                                     rules={[{ required: true, message: 'Please input your password!' }]}
